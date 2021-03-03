@@ -1,0 +1,2 @@
+# StrikePlugin
+Strike Plugin
