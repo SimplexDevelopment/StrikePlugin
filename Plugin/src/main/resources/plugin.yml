@@ -1,0 +1,10 @@
+name: Strike
+version: 1.0
+main: io.github.simplexdev.simplexcore.strike.StrikePlugin
+api-version: 1.16
+authors: [ SimplexDev ]
+description: FFA Minigame Plugin, U have a get a gun, grenade and a heal package, that you use to be the last man standing in the minigame
+commands:
+  strike:
+    usage: <command>
+    description: null
