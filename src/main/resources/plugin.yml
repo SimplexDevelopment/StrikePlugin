@@ -1,0 +1,4 @@
+name: Strike
+version: @version@
+main: io.github.simpledev.strike.Strike
+api-version: 1.16
