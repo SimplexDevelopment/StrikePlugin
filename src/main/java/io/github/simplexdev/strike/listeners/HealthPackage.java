@@ -16,8 +16,7 @@
  import org.bukkit.inventory.meta.ItemMeta;
  import org.bukkit.plugin.java.JavaPlugin;
 
- public class HealthPackage
-   implements ConfigUser {
+ public class HealthPackage implements ConfigUser {
      private final JavaPlugin plugin;
      private ItemStack healthPackage;
      private String usedMessage;
@@ -56,7 +55,7 @@
      public ItemStack createItem() {
          String base64 = "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNGExNTU4YTgzZjQwMjZkYjIzMmY4MGJjOTYxNWNjM2JhNDE1ZGM0MDk0MGE1YTEzYWUyYThjOTBiMTVjM2MzZSJ9fX0=";
 
-         ItemStack healthPackage = SkullCreator.itemFromBase64(base64);
+         ItemStack healthPackage = SkullCreator.itemWithUrl(SkullCreator.createSkull(), base64);
          ItemMeta meta = plugin.getServer().getItemFactory().getItemMeta(Material.PLAYER_HEAD);
 
          meta.setDisplayName(ChatColor.translateAlternateColorCodes('&', this.plugin.getConfig().getString("health-package.name")));

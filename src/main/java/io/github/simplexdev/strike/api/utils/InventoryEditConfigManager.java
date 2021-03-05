@@ -5,7 +5,6 @@ import io.github.simplexdev.strike.listeners.Gun;
 import io.github.simplexdev.strike.listeners.HealthPackage;
 import org.bukkit.Material;
 import org.bukkit.configuration.InvalidConfigurationException;
-import org.bukkit.configuration.MemorySection;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
@@ -14,7 +13,6 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.List;
 import java.util.Set;
 
 public class InventoryEditConfigManager {
@@ -106,6 +104,8 @@ public class InventoryEditConfigManager {
                 return i;
 
         return 0;
-    };
+    }
+
+    ;
 
 }

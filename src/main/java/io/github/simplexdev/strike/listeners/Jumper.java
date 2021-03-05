@@ -1,80 +1,75 @@
-/*    */ package io.github.simplexdev.strike.listeners;
-/*    */ 
-/*    */ import com.destroystokyo.paper.event.player.PlayerJumpEvent;
-/*    */ import io.github.simplexdev.strike.api.ConfigUser;
-/*    */ import java.util.HashMap;
-/*    */ import java.util.Map;
-/*    */ import java.util.UUID;
-/*    */
+package io.github.simplexdev.strike.listeners;
+
+import com.destroystokyo.paper.event.player.PlayerJumpEvent;
+import io.github.simplexdev.strike.api.ConfigUser;
 import org.bukkit.ChatColor;
-/*    */ import org.bukkit.GameMode;
-/*    */ import org.bukkit.entity.Player;
-/*    */ import org.bukkit.event.EventHandler;
-/*    */ import org.bukkit.event.player.PlayerToggleFlightEvent;
-/*    */ import org.bukkit.plugin.Plugin;
-/*    */ import org.bukkit.plugin.java.JavaPlugin;
-/*    */ import org.bukkit.scheduler.BukkitRunnable;
-/*    */ 
-/*    */ public class Jumper implements ConfigUser
-/*    */ {
-/* 20 */   private static final Map<UUID, Long> playersOnCoolDown = new HashMap<>();
-/*    */   private final JavaPlugin plugin;
-/*    */   private Integer coolDownTime;
-/*    */   
-/*    */   public Jumper(JavaPlugin plugin) {
-/* 25 */     this.plugin = plugin;
-/* 26 */     this.coolDownTime = Integer.valueOf(plugin.getConfig().getInt("double-jump.cooldown"));
-/*    */   }
-/*    */ 
-/*    */ 
-/*    */   
-/*    */   @EventHandler
-/*    */   private void onPlayerJump(PlayerJumpEvent e) {
-/* 33 */     Player player = e.getPlayer();
-/* 34 */     GameMode mode = player.getGameMode();
-/*    */     
-/* 36 */     if (mode == GameMode.CREATIVE || mode == GameMode.SPECTATOR) {
-/*    */       return;
-/*    */     }
-/* 39 */     if (playersOnCoolDown.containsKey(player.getUniqueId())) {
-/*    */       return;
-/*    */     }
-/* 42 */     player.setAllowFlight(true);
-/*    */   }
-/*    */ 
-/*    */   
-/*    */   @EventHandler
-/*    */   private void onFlightAccessChange(PlayerToggleFlightEvent e) {
-/* 48 */     final Player player = e.getPlayer();
-/* 49 */     GameMode mode = player.getGameMode();
-/*    */     
-/* 51 */     if (mode == GameMode.CREATIVE || mode == GameMode.SPECTATOR) {
-/*    */       return;
-/*    */     }
-/* 54 */     e.setCancelled(true);
-/* 55 */     player.setAllowFlight(false);
-/*    */     
-/* 57 */     player.setVelocity(player.getLocation().getDirection().multiply(0.5D).setY(0.5D));
-/*    */     
-/* 59 */     playersOnCoolDown.put(player.getPlayer().getUniqueId(), Long.valueOf((this.coolDownTime.intValue() * 1000) + System.currentTimeMillis()));
-/*    */     
-/* 61 */     (new BukkitRunnable()
-/*    */       {
-/*    */         public void run() {
-/* 64 */           Jumper.playersOnCoolDown.remove(player.getPlayer().getUniqueId());
-/* 65 */           player.sendMessage(ChatColor.translateAlternateColorCodes('&', Jumper.this.plugin.getConfig().getString("double-jump.cooldown-finish-message")));
-/*    */         }
-/* 67 */       }).runTaskLater((Plugin)this.plugin, 20L * this.coolDownTime.intValue());
-/*    */   }
-/*    */ 
-/*    */   
-/*    */   public void refresh() {
-/* 72 */     this.coolDownTime = Integer.valueOf(this.plugin.getConfig().getInt("double-jump.cooldown"));
-/*    */   }
-/*    */ }
+import org.bukkit.GameMode;
+import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.player.PlayerMoveEvent;
+import org.bukkit.event.player.PlayerToggleFlightEvent;
+import org.bukkit.plugin.Plugin;
+import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.scheduler.BukkitRunnable;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.UUID;
+
+public class Jumper implements ConfigUser {
+    private static final Map<UUID, Long> playersOnCoolDown = new HashMap<>();
+    private final JavaPlugin plugin;
+    private Integer coolDownTime;
+
+    public Jumper(JavaPlugin plugin) {
+        this.plugin = plugin;
+        this.coolDownTime = Integer.valueOf(plugin.getConfig().getInt("double-jump.cooldown"));
+    }
 
 
-/* Location:              E:\Rishi\Codes\Java Projects\Minecraft Plugins\PaperMC\1.16.4\Server Testing\plugins\strike-1.0-SNAPSHOT.jar!\io\github\simplexdev\simplexcore\strike\listeners\Jumper.class
- * Java compiler version: 8 (52.0)
- * JD-Core Version:       1.1.3
- */
+    @EventHandler
+    private void onPlayerMove(PlayerMoveEvent e) {
+        Player player = e.getPlayer();
+        GameMode mode = player.getGameMode();
+
+        if (mode == GameMode.CREATIVE || mode == GameMode.SPECTATOR) {
+            return;
+        }
+
+        player.setAllowFlight(true);
+
+        if (playersOnCoolDown.containsKey(player.getUniqueId())) {
+            return;
+        }
+
+    }
+
+
+    @EventHandler
+    private void onFlightAccessChange(PlayerToggleFlightEvent e) {
+        final Player player = e.getPlayer();
+        GameMode mode = player.getGameMode();
+
+        if (mode == GameMode.CREATIVE || mode == GameMode.SPECTATOR) {
+            return;
+        }
+        player.setAllowFlight(false);
+        e.setCancelled(true);
+
+        player.setVelocity(player.getLocation().getDirection().multiply(0.5D).setY(0.5D));
+
+        playersOnCoolDown.put(player.getPlayer().getUniqueId(), Long.valueOf((this.coolDownTime.intValue() * 1000) + System.currentTimeMillis()));
+
+        (new BukkitRunnable() {
+            public void run() {
+                Jumper.playersOnCoolDown.remove(player.getPlayer().getUniqueId());
+                player.sendMessage(ChatColor.translateAlternateColorCodes('&', Jumper.this.plugin.getConfig().getString("double-jump.cooldown-finish-message")));
+            }
+        }).runTaskLater((Plugin) this.plugin, 20L * this.coolDownTime.intValue());
+    }
+
+
+    public void refresh() {
+        this.coolDownTime = Integer.valueOf(this.plugin.getConfig().getInt("double-jump.cooldown"));
+    }
+}

@@ -1,20 +1,15 @@
 package io.github.simplexdev.strike;
 
 import io.github.simplexdev.strike.api.Spawn;
-import io.github.simplexdev.strike.api.utils.InventoryEditConfigManager;
 import io.github.simplexdev.strike.listeners.*;
 import org.bukkit.plugin.java.JavaPlugin;
 
 
 public final class StrikePlugin extends JavaPlugin {
     //TODO
-    // Full Ammo after dead
     // Fall Damage Disable
-    // Health Pack head not working
-    // Bullet through Grass
-    // Ammo CHat Remove
+    // Bullet through Grass, Glass, Fence, Gates, Bars
     // NPC Edit
-    // SetSpawn
     // LaunchPad
 
     @Override

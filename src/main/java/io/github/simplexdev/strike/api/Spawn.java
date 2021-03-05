@@ -1,46 +1,53 @@
-/*    */ package io.github.simplexdev.strike.api;
-/*    */ 
-/*    */ import org.bukkit.Location;
-/*    */ import org.bukkit.World;
-/*    */ import org.bukkit.configuration.file.FileConfiguration;
-/*    */ import org.bukkit.plugin.java.JavaPlugin;
-/*    */ 
-/*    */ public class Spawn {
-/*  9 */   private static World world = null;
-/* 10 */   private static Location spawn = null;
-/*    */   
-/*    */   public static void loadConfig(JavaPlugin plugin) {
-/* 13 */     FileConfiguration config = plugin.getConfig();
-/*    */     
-/* 15 */     world = plugin.getServer().getWorld(config.getString("spawn.world"));
-/* 16 */     spawn = new Location(world, config.getInt("spawn.location.x"), config.getInt("spawn.location.y"), config.getInt("spawn.location.z"));
-/*    */   }
-/*    */   
-/*    */   public static void setSpawn(Location spawn, JavaPlugin plugin) {
-/* 20 */     FileConfiguration config = plugin.getConfig();
-/* 21 */     config.set("spawn.coords.x",spawn.getX());
-/* 22 */     config.set("spawn.coords.y", spawn.getY());
-/* 23 */     config.set("spawn.coords.z", spawn.getZ());
-/*    */     
-/* 25 */     Spawn.spawn = spawn;
-/*    */   }
-/*    */   
-/*    */   public static void setWorld(World world, JavaPlugin plugin) {
-/* 29 */     plugin.getConfig().set("spawn.world", world.getName());
-/* 30 */     Spawn.world = world;
-/*    */   }
-/*    */   
-/*    */   public static World getWorld() {
-/* 34 */     return world;
-/*    */   }
-/*    */   
-/*    */   public static Location getSpawn() {
-/* 38 */     return spawn;
-/*    */   }
-/*    */ }
+package io.github.simplexdev.strike.api;
 
+import org.bukkit.Location;
+import org.bukkit.World;
+import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.plugin.java.JavaPlugin;
 
-/* Location:              E:\Rishi\Codes\Java Projects\Minecraft Plugins\PaperMC\1.16.4\Server Testing\plugins\strike-1.0-SNAPSHOT.jar!\io\github\simplexdev\simplexcore\strike\api\Spawn.class
- * Java compiler version: 8 (52.0)
- * JD-Core Version:       1.1.3
- */
+import java.io.File;
+import java.io.IOException;
+
+public class Spawn {
+    private static World world = null;
+    private static Location spawn = null;
+
+    public static void loadConfig(JavaPlugin plugin) {
+        FileConfiguration config = plugin.getConfig();
+
+        world = plugin.getServer().getWorld(config.getString("spawn.world"));
+        spawn = new Location(world, config.getInt("spawn.location.x"), config.getInt("spawn.location.y"), config.getInt("spawn.location.z"));
+    }
+
+    public static void setSpawn(Location spawn, JavaPlugin plugin) {
+        FileConfiguration config = plugin.getConfig();
+        config.set("spawn.coords.x", spawn.getX());
+        config.set("spawn.coords.y", spawn.getY());
+        config.set("spawn.coords.z", spawn.getZ());
+        try {
+            config.save(new File(config.getCurrentPath()));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        Spawn.spawn = spawn;
+    }
+
+    public static void setWorld(World world, JavaPlugin plugin) {
+        plugin.getConfig().set("spawn.world", world.getName());
+        try {
+            plugin.getConfig().save(new File(plugin.getConfig().getCurrentPath()));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        Spawn.world = world;
+    }
+
+    public static World getWorld() {
+        return world;
+    }
+
+    public static Location getSpawn() {
+        return spawn;
+    }
+}
