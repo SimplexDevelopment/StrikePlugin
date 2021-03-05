@@ -3,9 +3,12 @@ package io.github.simplexdev.strike;
 import io.github.simplexdev.strike.api.ConfigUser;
 import java.util.Arrays;
 
+import io.github.simplexdev.strike.api.utils.InventoryEditConfigManager;
+import io.github.simplexdev.strike.listeners.InventoryEditGUI;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
 
@@ -27,9 +30,19 @@ public class StrikeCommand implements CommandExecutor {
         if (args[0].isEmpty() || args.length > 1) {
             return true;
         }
-        if ("reload".equals(args[0].toLowerCase())) {
+        if ("reload".equalsIgnoreCase(args[0])) {
             this.plugin.reloadConfig();
-            Arrays.<ConfigUser>stream(configUsers).forEach(configUser -> configUser.refresh());
+            Arrays.stream(configUsers).forEach(configUser -> configUser.refresh());
+        }
+
+        else if ("edit".equalsIgnoreCase(args[0]) && sender instanceof Player) {
+            new InventoryEditGUI(plugin).openInventory((Player) sender);
+        }
+
+        else if ("get".equalsIgnoreCase(args[0]) && sender instanceof Player) {
+            Player player = (Player) sender;
+
+            player.getInventory().setContents(new InventoryEditConfigManager(plugin).getInventory(player));
         }
 
 

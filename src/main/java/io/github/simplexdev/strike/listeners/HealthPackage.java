@@ -53,7 +53,7 @@
          }
      }
 
-     public ItemStack createHealthPackage() {
+     public ItemStack createItem() {
          String base64 = "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNGExNTU4YTgzZjQwMjZkYjIzMmY4MGJjOTYxNWNjM2JhNDE1ZGM0MDk0MGE1YTEzYWUyYThjOTBiMTVjM2MzZSJ9fX0=";
 
          ItemStack healthPackage = SkullCreator.itemFromBase64(base64);
@@ -63,7 +63,7 @@
 
          healthPackage.setItemMeta(meta);
 
-         return healthPackage;
+         return healthPackage.clone();
      }
 
      @EventHandler
@@ -93,6 +93,6 @@
      public void refresh() {
          this.usedMessage = plugin.getConfig().getString("health-package.restore-health-message", "You have restored your health");
          this.regainHealth = plugin.getConfig().getInt("health-package.restore-health");
-         this.healthPackage = createHealthPackage();
+         this.healthPackage = createItem();
      }
  }

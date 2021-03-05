@@ -45,7 +45,7 @@ public class Grenade implements ConfigUser {
 
         this.plugin.getServer().getOnlinePlayers().forEach(player -> player.getInventory().addItem(new ItemStack[]{stack}));
 
-        return stack;
+        return stack.clone();
     }
 
 
@@ -108,7 +108,7 @@ public class Grenade implements ConfigUser {
 
                 if (player.getHealth() <= e.getFinalDamage())
                     killer = entry.getKey();
-                
+
                 entry.getValue().remove(player);
             }
         }
