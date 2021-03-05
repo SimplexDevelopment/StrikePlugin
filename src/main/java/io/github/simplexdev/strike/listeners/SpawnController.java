@@ -1,8 +1,9 @@
-/*    */ package io.github.simplexdev.simplexcore.strike.listeners;
+/*    */ package io.github.simplexdev.strike.listeners;
 /*    */ 
-/*    */ import io.github.simplexdev.simplexcore.strike.api.ConfigUser;
-/*    */ import io.github.simplexdev.simplexcore.strike.api.Spawn;
-/*    */ import org.bukkit.Material;
+/*    */ import io.github.simplexdev.strike.api.ConfigUser;
+/*    */ import io.github.simplexdev.strike.api.Spawn;
+/*    */
+import org.bukkit.Material;
 /*    */ import org.bukkit.entity.Player;
 /*    */ import org.bukkit.event.EventHandler;
 /*    */ import org.bukkit.event.EventPriority;

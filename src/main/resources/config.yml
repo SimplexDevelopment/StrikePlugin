@@ -1,0 +1,27 @@
+double-jump:
+  cooldown: 10 #Time in Seconds
+  cooldown-finish-message: "Done"
+
+gun:
+  ammo: 30
+  name: "Gun" #Gun Name
+  damage: 3 #Damage Per Shoot
+  reload-time: 2 #Time in Seconds
+  range: 30 #Blocks the bullet can travel (must be below 120)
+
+grenade:
+  name: "Grenade" #Name of the Grenade
+  explosion-time: 1 #Time in seconds
+
+health-package:
+  name: "&cHealth Package"
+  restore-health: 20
+  restore-health-message: "You have restored your health"
+
+spawn:
+  respawn-message: "you respawned" #respawn message
+  world: "world" #the world name
+  coords: #x,y,z coordinates of the spawn
+    x: 0
+    y: 0
+    z: 0

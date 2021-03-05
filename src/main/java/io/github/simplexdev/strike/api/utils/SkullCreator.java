@@ -1,4 +1,4 @@
- package io.github.simplexdev.simplexcore.strike.utils;
+ package io.github.simplexdev.strike.api.utils;
 
  import com.mojang.authlib.GameProfile;
  import com.mojang.authlib.properties.Property;

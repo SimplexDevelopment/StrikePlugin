@@ -1,4 +1,4 @@
-/*    */ package io.github.simplexdev.simplexcore.strike.events;
+/*    */ package io.github.simplexdev.strike.events;
 /*    */ 
 /*    */ import org.bukkit.entity.LivingEntity;
 /*    */ import org.bukkit.entity.Player;

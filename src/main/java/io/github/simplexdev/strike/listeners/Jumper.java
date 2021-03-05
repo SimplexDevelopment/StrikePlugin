@@ -1,11 +1,12 @@
-/*    */ package io.github.simplexdev.simplexcore.strike.listeners;
+/*    */ package io.github.simplexdev.strike.listeners;
 /*    */ 
 /*    */ import com.destroystokyo.paper.event.player.PlayerJumpEvent;
-/*    */ import io.github.simplexdev.simplexcore.strike.api.ConfigUser;
+/*    */ import io.github.simplexdev.strike.api.ConfigUser;
 /*    */ import java.util.HashMap;
 /*    */ import java.util.Map;
 /*    */ import java.util.UUID;
-/*    */ import org.bukkit.ChatColor;
+/*    */
+import org.bukkit.ChatColor;
 /*    */ import org.bukkit.GameMode;
 /*    */ import org.bukkit.entity.Player;
 /*    */ import org.bukkit.event.EventHandler;
@@ -14,8 +15,7 @@
 /*    */ import org.bukkit.plugin.java.JavaPlugin;
 /*    */ import org.bukkit.scheduler.BukkitRunnable;
 /*    */ 
-/*    */ public final class Jumper
-/*    */   implements ConfigUser
+/*    */ public class Jumper implements ConfigUser
 /*    */ {
 /* 20 */   private static final Map<UUID, Long> playersOnCoolDown = new HashMap<>();
 /*    */   private final JavaPlugin plugin;

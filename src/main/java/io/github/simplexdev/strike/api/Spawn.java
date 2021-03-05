@@ -1,4 +1,4 @@
-/*    */ package io.github.simplexdev.simplexcore.strike.api;
+/*    */ package io.github.simplexdev.strike.api;
 /*    */ 
 /*    */ import org.bukkit.Location;
 /*    */ import org.bukkit.World;
@@ -18,9 +18,9 @@
 /*    */   
 /*    */   public static void setSpawn(Location spawn, JavaPlugin plugin) {
 /* 20 */     FileConfiguration config = plugin.getConfig();
-/* 21 */     config.set("spawn.coords.x", Double.valueOf(spawn.getX()));
-/* 22 */     config.set("spawn.coords.y", Double.valueOf(spawn.getY()));
-/* 23 */     config.set("spawn.coords.z", Double.valueOf(spawn.getZ()));
+/* 21 */     config.set("spawn.coords.x",spawn.getX());
+/* 22 */     config.set("spawn.coords.y", spawn.getY());
+/* 23 */     config.set("spawn.coords.z", spawn.getZ());
 /*    */     
 /* 25 */     Spawn.spawn = spawn;
 /*    */   }

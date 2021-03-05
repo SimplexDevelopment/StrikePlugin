@@ -1,11 +1,13 @@
-/*     */ package io.github.simplexdev.simplexcore.strike.listeners;
-/*     */ import io.github.simplexdev.simplexcore.strike.api.Spawn;
+/*     */ package io.github.simplexdev.strike.listeners;
+/*     */ import io.github.simplexdev.strike.api.ConfigUser;
+import io.github.simplexdev.strike.api.Spawn;
 /*     */ import java.util.Collection;
 /*     */ import java.util.HashMap;
-/*     */ import org.bukkit.ChatColor;
-/*     */ import org.bukkit.Location;
-/*     */ import org.bukkit.Material;
-/*     */ import org.bukkit.World;
+/*     */ import io.github.simplexdev.strike.events.GunKillEvent;
+import org.bukkit.*;
+/*     */
+/*     */
+/*     */
 /*     */ import org.bukkit.entity.Entity;
 /*     */ import org.bukkit.entity.LivingEntity;
 /*     */ import org.bukkit.entity.Player;
@@ -20,7 +22,7 @@
 /*     */ import org.bukkit.plugin.java.JavaPlugin;
 /*     */ import org.bukkit.scheduler.BukkitRunnable;
 /*     */ 
-/*     */ public final class Gun implements ConfigUser {
+/*     */ public class Gun implements ConfigUser {
 /*  24 */   private static final HashMap<ItemStack, Integer> ammoMap = new HashMap<>();
 /*     */   
 /*     */   private final ItemStack gunItemStack;

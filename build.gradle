@@ -41,7 +41,7 @@ processResources {
 
 task copyJar(type: Copy) {
     from jar
-    into "C:/Users/Valdemar/Desktop/mc/TestServer1.16.5/plugins"
+    into "E:\\Rishi\\Codes\\Java Projects\\Minecraft Plugins\\PaperMC\\1.16.4\\Server Testing\\plugins"
 }
 
 build.finalizedBy copyJar

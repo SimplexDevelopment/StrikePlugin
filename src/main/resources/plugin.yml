@@ -1,4 +1,8 @@
 name: Strike
 version: @version@
-main: io.github.simpledev.strike.Strike
+main: io.github.simplexdev.strike.StrikePlugin
 api-version: 1.16
+commands:
+  strike:
+    usage: <command>
+    description: ok

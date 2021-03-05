@@ -1,4 +1,4 @@
-package io.github.simplexdev.simplexcore.strike.api;
+package io.github.simplexdev.strike.api;
 
 import org.bukkit.event.Listener;
 
