@@ -65,30 +65,6 @@
          return healthPackage.clone();
      }
 
-     @EventHandler
-     public void onDeath(PlayerDeathEvent e) {
-         Player player = e.getEntity();
-
-         if (player.getWorld().equals(Spawn.getWorld())) {
-
-             if (player.getKiller() != null)
-                 player.getKiller().getInventory().addItem(new ItemStack[]{this.healthPackage});
-
-             e.getDrops().clear();
-         }
-     }
-
-     @EventHandler
-     private void onDeath(GunKillEvent e) {
-         if (e.getDead() instanceof Player)
-             e.getKiller().getInventory().addItem(new ItemStack[]{this.healthPackage});
-     }
-
-     @EventHandler
-     private void onDeath(GrenadeKillEvent e) {
-         e.getKiller().getInventory().addItem(this.healthPackage);
-     }
-
      public void refresh() {
          this.usedMessage = plugin.getConfig().getString("health-package.restore-health-message", "You have restored your health");
          this.regainHealth = plugin.getConfig().getInt("health-package.restore-health");

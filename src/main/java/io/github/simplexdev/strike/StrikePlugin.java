@@ -22,18 +22,20 @@ public final class StrikePlugin extends JavaPlugin {
         SpawnController spawnController = new SpawnController(this);
         HealthPackage healthPackage = new HealthPackage(this);
         Grenade grenade = new Grenade(this);
+        ItemManager itemManager = new ItemManager(this);
 
         getServer().getPluginManager().registerEvents(gun, this);
         getServer().getPluginManager().registerEvents(jumper, this);
         getServer().getPluginManager().registerEvents(spawnController, this);
         getServer().getPluginManager().registerEvents(healthPackage, this);
         getServer().getPluginManager().registerEvents(grenade, this);
+        getServer().getPluginManager().registerEvents(itemManager, this);
 
         getServer().getPluginManager().registerEvents(new InventoryEditGUI(this), this);
 
         getCommand("strike").setExecutor(new StrikeCommand(this));
 
-        StrikeCommand.loadInstances(gun, jumper, spawnController, grenade);
+        StrikeCommand.loadInstances(gun, jumper, spawnController, grenade, itemManager);
     }
 
     @Override

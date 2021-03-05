@@ -64,6 +64,7 @@ public class Gun implements ConfigUser {
         blocks.add(Material.DARK_OAK_FENCE_GATE);
         blocks.add(Material.WATER);
         blocks.add(Material.LAVA);
+        blocks.add(Material.AIR);
 
         return blocks;
     }
@@ -105,7 +106,7 @@ public class Gun implements ConfigUser {
 
                     return;
                 }
-                String ammoText = (Gun.ammoMap.containsKey(mainHandItem) ? ((Integer) Gun.ammoMap.get(mainHandItem)).intValue() : Gun.this.maxAmmo) + " | " + Gun.this.maxAmmo;
+                String ammoText = (Gun.ammoMap.containsKey(player) ? ((Integer) Gun.ammoMap.get(player)).intValue() : Gun.this.maxAmmo) + " | " + Gun.this.maxAmmo;
 
                 player.sendActionBar(ammoText);
             }
@@ -130,11 +131,11 @@ public class Gun implements ConfigUser {
         }
         int ammo = this.maxAmmo;
 
-        if (!ammoMap.containsKey(itemStack)) {
+        if (!ammoMap.containsKey(player)) {
             ammoMap.put(player, Integer.valueOf(this.maxAmmo - 1));
         } else {
 
-            ammo = ((Integer) ammoMap.get(itemStack)).intValue();
+            ammo = ((Integer) ammoMap.get(player)).intValue();
 
             if (ammo == 1) {
                 (new BukkitRunnable() {
@@ -144,7 +145,7 @@ public class Gun implements ConfigUser {
                 }).runTaskLater((Plugin) this.plugin, 20L * this.plugin.getConfig().getInt("gun.reload-time"));
             }
 
-            if (((Integer) ammoMap.get(itemStack)).intValue() != 0) {
+            if (((Integer) ammoMap.get(player)).intValue() != 0) {
                 ammoMap.replace(player, Integer.valueOf(ammo - 1));
             }
         }
@@ -153,6 +154,8 @@ public class Gun implements ConfigUser {
         }
 
         Entity entity = getEntity(player, player.getEyeLocation().clone(), 0.0D);
+
+        System.out.println(entity);
 
         if (!(entity instanceof LivingEntity)) {
             return;

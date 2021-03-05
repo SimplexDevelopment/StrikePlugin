@@ -3,20 +3,25 @@ package io.github.simplexdev.strike.listeners;
 import io.github.simplexdev.strike.api.ConfigUser;
 import io.github.simplexdev.strike.api.Spawn;
 import io.github.simplexdev.strike.api.utils.InventoryEditConfigManager;
+import io.github.simplexdev.strike.events.GrenadeKillEvent;
+import io.github.simplexdev.strike.events.GunKillEvent;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerRespawnEvent;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
 
 
 public class SpawnController implements ConfigUser {
     private final JavaPlugin plugin;
 
+
     public SpawnController(JavaPlugin plugin) {
         this.plugin = plugin;
+
     }
 
     @EventHandler
