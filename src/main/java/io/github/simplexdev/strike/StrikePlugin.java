@@ -7,8 +7,6 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 public final class StrikePlugin extends JavaPlugin {
     //TODO
-    // Fall Damage Disable
-    // Bullet through Grass, Glass, Fence, Gates, Bars
     // NPC Edit
     // LaunchPad
 

@@ -39,11 +39,9 @@ public class Grenade implements ConfigUser {
         ItemStack stack = new ItemStack(Material.MAGMA_CREAM, 1);
         ItemMeta meta = this.plugin.getServer().getItemFactory().getItemMeta(Material.MAGMA_CREAM);
 
-        meta.setDisplayName(ChatColor.RED + "Grenade");
+        meta.setDisplayName(ChatColor.translateAlternateColorCodes('&', plugin.getConfig().getString("grenade.name")));
 
         stack.setItemMeta(meta);
-
-        this.plugin.getServer().getOnlinePlayers().forEach(player -> player.getInventory().addItem(new ItemStack[]{stack}));
 
         return stack.clone();
     }
@@ -73,12 +71,12 @@ public class Grenade implements ConfigUser {
             public void run() {
                 if (item != null) {
                     item.getLocation().createExplosion(4.0F, false, false);
-                    Collection<LivingEntity> entities = item.getLocation().getNearbyLivingEntities(4.0D);
+                    Collection<LivingEntity> entities = item.getLocation().getNearbyLivingEntities(10.0D);
 
                     List<Player> players = new ArrayList<>();
 
                     entities.forEach(livingEntity -> {
-                        if (livingEntity instanceof Player) {
+                        if (livingEntity instanceof Player && !player.equals(livingEntity)) {
                             players.add((Player) livingEntity);
                         }
                     });
@@ -96,10 +94,11 @@ public class Grenade implements ConfigUser {
 
     @EventHandler
     private void onPlayerDamage(EntityDamageEvent e) {
-        if (!e.getEntity().getWorld().equals(Spawn.getWorld()) || !(e.getEntity() instanceof Player))
+        if (e.getCause() != EntityDamageEvent.DamageCause.BLOCK_EXPLOSION || !e.getEntity().getWorld().equals(Spawn.getWorld()) || !(e.getEntity() instanceof Player))
             return;
 
-        Player player = (Player) e.getEntity();
+        Player player = (Player) e.getEntity();;
+
         Player killer = null;
 
         for (Map.Entry<Player, List<Player>> entry : map.entrySet()) {

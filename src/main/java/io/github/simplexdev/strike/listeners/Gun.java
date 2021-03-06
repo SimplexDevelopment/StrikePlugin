@@ -65,6 +65,12 @@ public class Gun implements ConfigUser {
         blocks.add(Material.WATER);
         blocks.add(Material.LAVA);
         blocks.add(Material.AIR);
+        blocks.add(Material.COBWEB);
+        blocks.add(Material.ACACIA_LEAVES);
+        blocks.add(Material.BIRCH_LEAVES);
+        blocks.add(Material.OAK_LEAVES);
+        blocks.add(Material.DARK_OAK_LEAVES);
+        blocks.add(Material.SPRUCE_LEAVES);
 
         return blocks;
     }
@@ -84,8 +90,6 @@ public class Gun implements ConfigUser {
         meta.setDisplayName(ChatColor.translateAlternateColorCodes('&', this.plugin.getConfig().getString("gun.name")));
 
         stack.setItemMeta(meta);
-
-        this.plugin.getServer().getOnlinePlayers().forEach(player -> player.getInventory().addItem(new ItemStack[]{stack}));
 
         return stack.clone();
     }
@@ -154,8 +158,6 @@ public class Gun implements ConfigUser {
         }
 
         Entity entity = getEntity(player, player.getEyeLocation().clone(), 0.0D);
-
-        System.out.println(entity);
 
         if (!(entity instanceof LivingEntity)) {
             return;

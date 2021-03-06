@@ -1,6 +1,7 @@
 double-jump:
   cooldown: 10 #Time in Seconds
   cooldown-finish-message: "Done"
+  message-enabled: true
 
 gun:
   ammo: 30

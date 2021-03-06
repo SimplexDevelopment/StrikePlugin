@@ -5,9 +5,6 @@ import org.bukkit.World;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import java.io.File;
-import java.io.IOException;
-
 public class Spawn {
     private static World world = null;
     private static Location spawn = null;
@@ -24,22 +21,17 @@ public class Spawn {
         config.set("spawn.coords.x", spawn.getX());
         config.set("spawn.coords.y", spawn.getY());
         config.set("spawn.coords.z", spawn.getZ());
-        try {
-            config.save(new File(config.getCurrentPath()));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+
+        plugin.saveConfig();
 
         Spawn.spawn = spawn;
     }
 
     public static void setWorld(World world, JavaPlugin plugin) {
         plugin.getConfig().set("spawn.world", world.getName());
-        try {
-            plugin.getConfig().save(new File(plugin.getConfig().getCurrentPath()));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+
+        plugin.saveConfig();
+
         Spawn.world = world;
     }
 

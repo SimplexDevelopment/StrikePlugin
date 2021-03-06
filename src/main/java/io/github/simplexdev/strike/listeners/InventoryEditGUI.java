@@ -30,7 +30,7 @@ public class InventoryEditGUI implements Listener {
         Inventory inventory = Bukkit.createInventory(null, 9);
         inventories.add(inventory);
 
-        inventory.setContents(configManager.getInventory(player));
+        inventory.setContents(configManager.getInventoryItems(player));
         player.openInventory(inventory);
     }
 
@@ -52,7 +52,7 @@ public class InventoryEditGUI implements Listener {
         Player player = (Player) e.getWhoClicked();
         Inventory openedInventory = player.getOpenInventory().getTopInventory();
 
-        if (inventories.contains(openedInventory) && !e.getClickedInventory().equals(openedInventory))
+        if (inventories.contains(openedInventory) && (e.getClickedInventory() == null || e.isShiftClick() || !e.getClickedInventory().equals(openedInventory)))
             e.setCancelled(true);
 
     }

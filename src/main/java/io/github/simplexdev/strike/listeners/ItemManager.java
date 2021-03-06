@@ -10,6 +10,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.PlayerInventory;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class ItemManager implements ConfigUser {
@@ -22,15 +23,14 @@ public class ItemManager implements ConfigUser {
         this.plugin = plugin;
         refresh();
     }
+
     @EventHandler
-    public void onDeath(PlayerDeathEvent e) {
+    private void onDeath(PlayerDeathEvent e) {
         Player player = e.getEntity();
 
         if (player.getWorld().equals(Spawn.getWorld())) {
-
-            addItem(player);
-
-            if (player.getKiller() != null);
+            if (player.getKiller() != null)
+                addItem(player.getKiller());
         }
     }
 
@@ -45,22 +45,35 @@ public class ItemManager implements ConfigUser {
         addItem(e.getKiller());
     }
 
-    private void addItem(Player player) {
+    public void addItem(Player player) {
         InventoryEditConfigManager configManager = new InventoryEditConfigManager(plugin);
 
-        if (!hasItem(player.getInventory(), grenade))
-            player.getInventory().setItem(configManager.getItemSlot(grenade, player), grenade);
+        setItem(player, grenade, configManager);
+        setItem(player, healthPackage, configManager);
 
-        if (!hasItem(player.getInventory(), healthPackage))
-            player.getInventory().setItem(configManager.getItemSlot(healthPackage, player), healthPackage);
+        player.updateInventory();
+    }
 
+    private void setItem(Player player, ItemStack itemStack, InventoryEditConfigManager configManager) {
+        PlayerInventory playerInventory = player.getInventory();
 
+        if (!hasItem(playerInventory, itemStack)) {
+            int slot = configManager.getItemSlot(itemStack, player);
+
+            if (playerInventory.getItem(slot) != null)
+                playerInventory.addItem(itemStack);
+            else
+                playerInventory.setItem(slot, itemStack);
+        }
     }
 
     private boolean hasItem(Inventory inventory, ItemStack itemStack) {
-        for (int i = 0; i < inventory.getSize(); i++)
-            if (inventory.getItem(0).isSimilar(itemStack))
+        for (int i = 0; i < inventory.getSize(); i++) {
+
+            if (inventory.getItem(i) != null && inventory.getItem(i).isSimilar(itemStack))
                 return true;
+        }
+
 
         return false;
     }

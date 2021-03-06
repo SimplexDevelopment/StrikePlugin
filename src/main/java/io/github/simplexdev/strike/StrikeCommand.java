@@ -3,7 +3,6 @@ package io.github.simplexdev.strike;
 import io.github.simplexdev.strike.api.ConfigUser;
 import java.util.Arrays;
 
-import io.github.simplexdev.strike.api.Spawn;
 import io.github.simplexdev.strike.api.utils.InventoryEditConfigManager;
 import io.github.simplexdev.strike.listeners.InventoryEditGUI;
 import io.github.simplexdev.strike.listeners.SpawnController;
@@ -44,7 +43,7 @@ public class StrikeCommand implements CommandExecutor {
         else if ("get".equalsIgnoreCase(args[0]) && sender instanceof Player) {
             Player player = (Player) sender;
 
-            player.getInventory().setContents(new InventoryEditConfigManager(plugin).getInventory(player));
+            player.getInventory().setContents(new InventoryEditConfigManager(plugin).getInventoryItems(player));
         }
 
         else if ("set-spawn".equalsIgnoreCase(args[0]) && sender instanceof Player) {
