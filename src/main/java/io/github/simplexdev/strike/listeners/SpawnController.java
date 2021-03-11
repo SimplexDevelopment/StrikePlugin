@@ -9,6 +9,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.entity.PlayerDeathEvent;
+import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.PlayerChangedWorldEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerRespawnEvent;
@@ -22,6 +23,14 @@ public class SpawnController implements ConfigUser {
     public SpawnController(JavaPlugin plugin) {
         this.plugin = plugin;
 
+    }
+
+    @EventHandler
+    private void onItemClick(InventoryClickEvent e) {
+        if (e.getWhoClicked().getWorld().equals(Spawn.getWorld()) &&
+                (e.getClickedInventory() != null
+                        && e.getClickedInventory().equals(e.getWhoClicked().getOpenInventory().getBottomInventory())))
+            e.setCancelled(true);
     }
 
     @EventHandler

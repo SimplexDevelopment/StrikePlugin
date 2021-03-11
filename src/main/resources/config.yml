@@ -1,5 +1,7 @@
 double-jump:
   cooldown: 10 #Time in Seconds
+  forward-distance: 0.5 #This is had to config up, U can use decimal number here
+  upward-distance: 0.75 #This is had to config up, U can use decimal number here
   cooldown-finish-message: "Done"
   message-enabled: true
 

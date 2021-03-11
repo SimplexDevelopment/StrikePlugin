@@ -2,9 +2,9 @@ package io.github.simplexdev.strike.listeners;
 
 import io.github.simplexdev.strike.api.ConfigUser;
 import io.github.simplexdev.strike.api.Spawn;
+import io.github.simplexdev.strike.api.events.GrenadeKillEvent;
+import io.github.simplexdev.strike.api.events.GunKillEvent;
 import io.github.simplexdev.strike.api.utils.InventoryEditConfigManager;
-import io.github.simplexdev.strike.events.GrenadeKillEvent;
-import io.github.simplexdev.strike.events.GunKillEvent;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.entity.PlayerDeathEvent;

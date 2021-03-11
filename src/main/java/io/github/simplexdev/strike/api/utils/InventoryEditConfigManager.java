@@ -3,7 +3,6 @@ package io.github.simplexdev.strike.api.utils;
 import io.github.simplexdev.strike.listeners.Grenade;
 import io.github.simplexdev.strike.listeners.Gun;
 import io.github.simplexdev.strike.listeners.HealthPackage;
-import io.github.simplexdev.strike.listeners.ItemManager;
 import org.bukkit.Material;
 import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -16,7 +15,6 @@ import org.bukkit.plugin.java.JavaPlugin;
 import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.Set;
 
 public class InventoryEditConfigManager {
@@ -30,9 +28,10 @@ public class InventoryEditConfigManager {
 
         dataFile = new File("plugins\\Strike\\inventories.yml");
         try {
-            if (!dataFile.isFile()) {
-
+            if (!dataFile.exists()) {
+                plugin.getDataFolder().mkdirs();
                 dataFile.createNewFile();
+                plugin.saveResource("inventories.yml", false);
             }
 
             dataConfig = new YamlConfiguration();

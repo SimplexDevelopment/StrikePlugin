@@ -1,5 +1,7 @@
 package io.github.simplexdev.strike.listeners;
 
+import com.github.juliarn.npc.event.PlayerNPCInteractEvent;
+import io.github.simplexdev.strike.StrikeCommand;
 import io.github.simplexdev.strike.api.utils.InventoryEditConfigManager;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -55,6 +57,14 @@ public class InventoryEditGUI implements Listener {
         if (inventories.contains(openedInventory) && (e.getClickedInventory() == null || e.isShiftClick() || !e.getClickedInventory().equals(openedInventory)))
             e.setCancelled(true);
 
+    }
+
+    @EventHandler
+    private void openGUI(PlayerNPCInteractEvent e) {
+        if (!StrikeCommand.getNpcMap().containsValue(e.getNPC()))
+            return;
+
+        openInventory(e.getPlayer());
     }
 
 }

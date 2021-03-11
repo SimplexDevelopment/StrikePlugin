@@ -1,1 +1,3 @@
 rootProject.name = 'strike'
+include 'NPC-lib'
+

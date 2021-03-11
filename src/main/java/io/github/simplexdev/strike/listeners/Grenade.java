@@ -2,7 +2,7 @@ package io.github.simplexdev.strike.listeners;
 
 import io.github.simplexdev.strike.api.ConfigUser;
 import io.github.simplexdev.strike.api.Spawn;
-import io.github.simplexdev.strike.events.GrenadeKillEvent;
+import io.github.simplexdev.strike.api.events.GrenadeKillEvent;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
@@ -65,7 +65,7 @@ public class Grenade implements ConfigUser {
         }
 
         final Item item = player.getWorld().dropItem(player.getEyeLocation(), new ItemStack(Material.MAGMA_CREAM));
-        item.setVelocity(player.getEyeLocation().getDirection().multiply(0.75D));
+        item.setVelocity(player.getEyeLocation().getDirection().multiply(1.5));
 
         (new BukkitRunnable() {
             public void run() {

@@ -2,6 +2,7 @@ import org.apache.tools.ant.filters.ReplaceTokens
 
 plugins {
     id 'java'
+    id "com.github.johnrengelman.shadow" version "6.1.0"
 }
 
 group = 'io.github.simpledev'
@@ -12,6 +13,17 @@ targetCompatibility = '1.8'
 
 repositories {
     mavenCentral()
+
+    maven {
+        name = 'jitpack.io'
+        url = 'https://jitpack.io'
+    }
+
+    maven {
+        name = 'npc-lib'
+        url = 'https://github.com/juliarn/NPC-Lib'
+    }
+
     maven {
         name = 'papermc-repo'
         url = 'https://papermc.io/repo/repository/maven-public/'
@@ -26,11 +38,13 @@ repositories {
         name = 'sonatype'
         url = 'https://oss.sonatype.org/content/groups/public/'
     }
+
 }
 
 dependencies {
     compileOnly 'com.destroystokyo.paper:paper-api:1.16.4-R0.1-SNAPSHOT'
-    compile 'com.mojang:authlib:1.5.21'
+    compileOnly 'com.mojang:authlib:1.5.21'
+    implementation 'com.github.juliarn:npc-lib:2.4-RELEASE'
 }
 
 processResources {
@@ -38,10 +52,3 @@ processResources {
         filter ReplaceTokens, tokens: [version: version]
     }
 }
-
-task copyJar(type: Copy) {
-    from jar
-    into "E:\\Rishi\\Codes\\Java Projects\\Minecraft Plugins\\PaperMC\\1.16.4\\Server Testing\\plugins"
-}
-
-build.finalizedBy copyJar
