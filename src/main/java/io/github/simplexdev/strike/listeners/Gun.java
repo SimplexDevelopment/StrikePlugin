@@ -155,7 +155,7 @@ public class Gun implements ConfigUser {
             public void run() {
                 delay.remove(player);
             }
-        }.runTaskLater(plugin, 2);
+        }.runTaskLater(plugin, 5);
 
         Entity entity = getEntity(player, player.getEyeLocation().clone(), 0.0D);
 
@@ -169,6 +169,7 @@ public class Gun implements ConfigUser {
         if (currentHealth <= damageHealth) {
             Bukkit.getServer().getPluginManager().callEvent((Event) new GunKillEvent(player, livingEntity));
         }
+
         livingEntity.damage(damageHealth);
     }
 

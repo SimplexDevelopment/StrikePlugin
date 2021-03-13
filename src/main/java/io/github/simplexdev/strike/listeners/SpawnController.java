@@ -2,7 +2,7 @@ package io.github.simplexdev.strike.listeners;
 
 import io.github.simplexdev.strike.api.ConfigUser;
 import io.github.simplexdev.strike.api.Spawn;
-import io.github.simplexdev.strike.api.utils.InventoryEditConfigManager;
+import io.github.simplexdev.strike.api.utils.yml.manager.InventoryEdit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
@@ -59,7 +59,7 @@ public class SpawnController implements ConfigUser {
         Player player = e.getPlayer();
         if (player.getWorld().equals(Spawn.getWorld())) {
             e.setRespawnLocation(Spawn.getSpawn());
-            player.getInventory().setContents(new InventoryEditConfigManager(plugin).getInventoryItems(e.getPlayer()));
+            player.getInventory().setContents(new InventoryEdit(plugin).getInventoryItems(e.getPlayer()));
             player.sendMessage(ChatColor.translateAlternateColorCodes('&', plugin.getConfig().getString("spawn.respawn-message")));
         }
     }

@@ -91,15 +91,18 @@ public class Grenade implements ConfigUser {
         items.add(item);
     }
 
-
     @EventHandler
     private void onPlayerDamage(EntityDamageEvent e) {
         if (e.getCause() != EntityDamageEvent.DamageCause.BLOCK_EXPLOSION || !e.getEntity().getWorld().equals(Spawn.getWorld()) || !(e.getEntity() instanceof Player))
             return;
 
-        Player player = (Player) e.getEntity();;
+        Player player = (Player) e.getEntity();
 
         Player killer = null;
+
+
+        int damageMultiplier = Math.round((long) (3 * (1/e.getDamage())));
+        e.setDamage(e.getDamage() * (damageMultiplier == 0 ? 1 : damageMultiplier));
 
         for (Map.Entry<Player, List<Player>> entry : map.entrySet()) {
 

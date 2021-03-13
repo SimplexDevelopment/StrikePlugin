@@ -1,4 +1,4 @@
-package io.github.simplexdev.strike.api.utils;
+package io.github.simplexdev.strike.api.utils.yml.manager;
 
 import io.github.simplexdev.strike.listeners.Grenade;
 import io.github.simplexdev.strike.listeners.Gun;
@@ -17,13 +17,13 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.Set;
 
-public class InventoryEditConfigManager {
+public class InventoryEdit {
 
     private final JavaPlugin plugin;
     private final File dataFile;
     private FileConfiguration dataConfig;
 
-    public InventoryEditConfigManager(JavaPlugin plugin) {
+    public InventoryEdit(JavaPlugin plugin) {
         this.plugin = plugin;
 
         dataFile = new File("plugins\\Strike\\inventories.yml");

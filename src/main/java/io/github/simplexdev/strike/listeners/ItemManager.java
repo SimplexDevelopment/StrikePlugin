@@ -4,7 +4,7 @@ import io.github.simplexdev.strike.api.ConfigUser;
 import io.github.simplexdev.strike.api.Spawn;
 import io.github.simplexdev.strike.api.events.GrenadeKillEvent;
 import io.github.simplexdev.strike.api.events.GunKillEvent;
-import io.github.simplexdev.strike.api.utils.InventoryEditConfigManager;
+import io.github.simplexdev.strike.api.utils.yml.manager.InventoryEdit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.entity.PlayerDeathEvent;
@@ -46,7 +46,7 @@ public class ItemManager implements ConfigUser {
     }
 
     public void addItem(Player player) {
-        InventoryEditConfigManager configManager = new InventoryEditConfigManager(plugin);
+        InventoryEdit configManager = new InventoryEdit(plugin);
 
         setItem(player, grenade, configManager);
         setItem(player, healthPackage, configManager);
@@ -54,17 +54,15 @@ public class ItemManager implements ConfigUser {
         player.updateInventory();
     }
 
-    private void setItem(Player player, ItemStack itemStack, InventoryEditConfigManager configManager) {
+    private void setItem(Player player, ItemStack itemStack, InventoryEdit configManager) {
         PlayerInventory playerInventory = player.getInventory();
 
-        if (!hasItem(playerInventory, itemStack)) {
-            int slot = configManager.getItemSlot(itemStack, player);
+        int slot = configManager.getItemSlot(itemStack, player);
 
-            if (playerInventory.getItem(slot) != null)
-                playerInventory.addItem(itemStack);
-            else
-                playerInventory.setItem(slot, itemStack);
-        }
+        if (playerInventory.getItem(slot) != null)
+            playerInventory.addItem(itemStack);
+        else
+            playerInventory.setItem(slot, itemStack);
     }
 
     private boolean hasItem(Inventory inventory, ItemStack itemStack) {

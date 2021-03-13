@@ -4,10 +4,13 @@ import com.github.juliarn.npc.NPC;
 import com.github.juliarn.npc.NPCPool;
 import com.github.juliarn.npc.profile.Profile;
 import io.github.simplexdev.strike.api.ConfigUser;
-import io.github.simplexdev.strike.api.utils.InventoryEditConfigManager;
+import io.github.simplexdev.strike.api.utils.yml.manager.LaunchPad;
+import io.github.simplexdev.strike.api.utils.yml.manager.InventoryEdit;
 import io.github.simplexdev.strike.listeners.InventoryEditGUI;
+import io.github.simplexdev.strike.listeners.LaunchPadListener;
 import io.github.simplexdev.strike.listeners.SpawnController;
 import org.bukkit.ChatColor;
+import org.bukkit.Location;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -20,6 +23,7 @@ import java.util.*;
 public class StrikeCommand implements CommandExecutor {
 
     private static Map<Integer, NPC> npcMap = new HashMap<>();
+    private static Location launchPad;
 
     private static ConfigUser[] configUsers;
     private final JavaPlugin plugin;
@@ -37,7 +41,11 @@ public class StrikeCommand implements CommandExecutor {
 
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
         if (args[0].isEmpty() || args.length > 1) {
+            helpCommand(sender);
             return true;
+        }
+        if ("help".equalsIgnoreCase(args[0])) {
+            helpCommand(sender);
         }
         if ("reload".equalsIgnoreCase(args[0])) {
             this.plugin.reloadConfig();
@@ -48,7 +56,7 @@ public class StrikeCommand implements CommandExecutor {
         } else if ("get".equalsIgnoreCase(args[0]) && sender instanceof Player) {
             Player player = (Player) sender;
 
-            player.getInventory().setContents(new InventoryEditConfigManager(plugin).getInventoryItems(player));
+            player.getInventory().setContents(new InventoryEdit(plugin).getInventoryItems(player));
         } else if ("set-spawn".equalsIgnoreCase(args[0]) && sender instanceof Player) {
             Player player = ((Player) sender);
             new SpawnController(plugin).setSpawn(player.getLocation());
@@ -66,6 +74,7 @@ public class StrikeCommand implements CommandExecutor {
             }
             while (npcMap.containsKey(random));
 
+            sender.sendMessage(ChatColor.GREEN + "NPC id: " + random + " was successfully created");
             npcMap.put(random, npc);
         }
 
@@ -86,8 +95,27 @@ public class StrikeCommand implements CommandExecutor {
             npcPool.removeNPC(npcMap.get(integer).getEntityId());
         }
 
+        else if ("pad-create".equalsIgnoreCase(args[0]) && sender instanceof Player) {
+            Player player = (Player) sender;
+
+            LaunchPadListener.locationMap.put(player.getLocation().getBlock().getLocation(), 1);
+            LaunchPad.addLocation(player.getLocation().getBlock().getLocation(), 1);
+        }
 
         return true;
+    }
+
+
+    private void helpCommand(CommandSender sender) {
+        sender.sendMessage(
+                ChatColor.GREEN + "/strike reload - " + ChatColor.YELLOW + "To load the config to the plugin\n" +
+                ChatColor.GREEN + "/strike edit - " + ChatColor.YELLOW + "To edit the player's spawn inventory\n" +
+                ChatColor.GREEN + "/strike get - " + ChatColor.YELLOW + "To get the items\n" +
+                ChatColor.GREEN + "/strike set-spawn - " + ChatColor.YELLOW + "To set the world and the location where the player spawns\n" +
+                ChatColor.GREEN + "/strike spawn-npc - " + ChatColor.YELLOW + "To spawn the npc that allows you to config your inventory\n" +
+                ChatColor.GREEN + "/strike remove-npc <npc-id> - " + ChatColor.YELLOW + "To remove the npc that allows you to config your inventory\n" +
+                ChatColor.GREEN + "/strike pad-create - " + ChatColor.YELLOW + "To add a launch pad on the block in on which you are standing on\n"
+        );
     }
 
     public static Map<Integer, NPC> getNpcMap() {

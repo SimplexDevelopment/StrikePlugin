@@ -2,7 +2,7 @@ package io.github.simplexdev.strike.listeners;
 
 import com.github.juliarn.npc.event.PlayerNPCInteractEvent;
 import io.github.simplexdev.strike.StrikeCommand;
-import io.github.simplexdev.strike.api.utils.InventoryEditConfigManager;
+import io.github.simplexdev.strike.api.utils.yml.manager.InventoryEdit;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -19,11 +19,11 @@ import java.util.List;
 public class InventoryEditGUI implements Listener {
 
     private static List<Inventory> inventories = new ArrayList<>();
-    private final InventoryEditConfigManager configManager;
+    private final InventoryEdit configManager;
     private final JavaPlugin plugin;
 
     public InventoryEditGUI(JavaPlugin plugin) {
-        configManager = new InventoryEditConfigManager(plugin);
+        configManager = new InventoryEdit(plugin);
         this.plugin = plugin;
     }
 
